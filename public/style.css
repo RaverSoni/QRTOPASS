@@ -1,0 +1,87 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+  color: #555;
+}
+
+input[type="number"],
+input[type="checkbox"] {
+  margin: 10px 0;
+}
+
+input[type="number"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.checkbox-group {
+  text-align: left;
+  margin: 15px 0;
+}
+
+.checkbox-group label {
+  display: inline-block;
+  margin-left: 8px;
+  color: #555;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1d60d2;
+}
+
+#password {
+  background-color: #f4f4f4;
+  padding: 12px;
+  margin-top: 20px;
+  border-radius: 4px;
+  font-size: 18px;
+  word-wrap: break-word;
+}
+
+#errorTitle,
+#error {
+  color: red;
+  margin-top: 20px;
+  display: none;
+}

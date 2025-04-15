@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+
+    <label for="length">Password Length: </label>
+    <input type="number" id="length" value="7" min="1" max="20">
+    <br><br>
+
+    <label for="lowercase">Include Lowercase Letters: </label>
+    <input type="checkbox" id="lowercase" checked>
+    <br><br>
+
+    <label for="uppercase">Include Uppercase Letters: </label>
+    <input type="checkbox" id="uppercase" checked>
+    <br><br>
+
+    <label for="numbers">Include Numbers: </label>
+    <input type="checkbox" id="numbers" checked>
+    <br><br>
+
+    <label for="symbols">Include Symbols: </label>
+    <input type="checkbox" id="symbols" checked>
+    <br><br>
+
+    <button onclick="generatePassword()">Generate Password</button>
+
+    <h3>Generated Password:</h3>
+    <p id="password"></p>
+
+    <h3 id="errorTitle">Error:</h3>
+    <p id="error"></p>
+  </div>
+
+  <script>
+    async function generatePassword() {
+  const length = document.getElementById('length').value;
+  const includeLowercase = document.getElementById('lowercase').checked;
+  const includeUppercase = document.getElementById('uppercase').checked;
+  const includeNumbers = document.getElementById('numbers').checked;
+  const includeSymbols = document.getElementById('symbols').checked;
+
+  // Clear previous error, password and QR code
+  document.getElementById('error').textContent = '';
+  document.getElementById('password').textContent = '';
+  document.getElementById('qrCode').style.display = 'none';
+  document.getElementById('qrCode').src = '';
+
+  // Hide error message by default
+  document.getElementById('errorTitle').style.display = 'none';
+  document.getElementById('error').style.display = 'none';
+
+  try {
+    const response = await fetch(`/api/generate-password?length=${length}&lowercase=${includeLowercase}&uppercase=${includeUppercase}&numbers=${includeNumbers}&symbols=${includeSymbols}`);
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      document.getElementById('error').textContent = errorData.error;
+      document.getElementById('errorTitle').style.display = 'block';
+      document.getElementById('error').style.display = 'block';
+      return;
+    }
+
+    const data = await response.json();
+    document.getElementById('password').textContent = data.password;
+
+    // Show QR code image
+    document.getElementById('qrCode').src = data.qrCode;
+    document.getElementById('qrCode').style.display = 'block';
+
+  } catch (error) {
+    document.getElementById('error').textContent = 'An error occurred while generating the password.';
+    document.getElementById('errorTitle').style.display = 'block';
+    document.getElementById('error').style.display = 'block';
+  }
+}
+  </script>
+</body>
+</html>
